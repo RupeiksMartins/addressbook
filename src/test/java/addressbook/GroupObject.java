@@ -1,11 +1,11 @@
 package addressbook;
 
-public class groupObject {
+public class GroupObject {
     private final String name;
     private final String logo;
     private final String comment;
 
-    public groupObject(String name, String logo, String comment) {
+    public GroupObject(String name, String logo, String comment) {
         this.name = name;
         this.logo = logo;
         this.comment = comment;
