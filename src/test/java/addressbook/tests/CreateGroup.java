@@ -9,10 +9,10 @@ public class CreateGroup extends TestBase {
 
     @Test
     public void testGroupCreation() {
-        app.navigateToGroups();
-        app.initGroupCreation();
-        app.fillGroupForm(new GroupObject("group1", "Logo", "Comment"));
-        app.submitGroupForm();
-        app.returnToGoupPage();
+        app.getNavigationHelper().navigateToGroups();
+        app.getGroupHelper().initGroupCreation();
+        app.getGroupHelper().fillGroupForm(new GroupObject("goup after layering", "Logo", "Comment"));
+        app.getGroupHelper().submitGroupForm();
+        app.getGroupHelper().returnToGoupPage();
     }
 }
