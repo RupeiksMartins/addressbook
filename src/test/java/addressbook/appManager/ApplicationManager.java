@@ -1,14 +1,13 @@
-package addressbook;
+package addressbook.appManager;
 
+import addressbook.model.GroupObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestBase {
+public class ApplicationManager {
     FirefoxDriver wd;
 
     public static boolean isAlertPresent(FirefoxDriver wd) {
@@ -20,14 +19,11 @@ public class TestBase {
         }
     }
 
-    @BeforeMethod
-    public void setUp() throws Exception {
-
+    public void init() {
         System.setProperty("webdriver.gecko.driver", "C:\\bin\\geckodriver.exe");
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
-
         login("admin", "secret");
     }
 
@@ -41,15 +37,15 @@ public class TestBase {
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
-    protected void returnToGoupPage() {
+    public void returnToGoupPage() {
         wd.findElement(By.linkText("group page")).click();
     }
 
-    protected void submitGroupForm() {
+    public void submitGroupForm() {
         wd.findElement(By.name("submit")).click();
     }
 
-    protected void fillGroupForm(GroupObject groupObject) {
+    public void fillGroupForm(GroupObject groupObject) {
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
         wd.findElement(By.name("group_name")).sendKeys(groupObject.getName());
@@ -61,24 +57,23 @@ public class TestBase {
         wd.findElement(By.name("group_footer")).sendKeys(groupObject.getComment());
     }
 
-    protected void initGroupCreation() {
+    public void initGroupCreation() {
         wd.findElement(By.name("new")).click();
     }
 
-    protected void navigateToGroups() {
+    public void navigateToGroups() {
         wd.findElement(By.linkText("GROUPS")).click();
     }
 
-    @AfterMethod
-    public void tearDown() {
+    public void stop() {
         wd.quit();
     }
 
-    protected void deleteSelectedGroups() {
+    public void deleteSelectedGroups() {
         wd.findElement(By.name("delete")).click();
     }
 
-    protected void selectGoup() {
+    public void selectGoup() {
         wd.findElement(By.cssSelector("span.group")).click();
         if (!wd.findElement(By.name("selected[]")).isSelected()) {
             wd.findElement(By.name("selected[]")).click();
